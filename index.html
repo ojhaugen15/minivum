@@ -5,6 +5,8 @@ font_color = 'purple'
 editor_background = 'black'
 body_padding = 10
 non-line_elements = 2
+breathing_room = 10
+storage_name = 'minivumojhaugen'
 
 command_mode = true
 
@@ -151,6 +153,16 @@ function toHTML (stringValue, currentIndex, currentOutput) {
  return newValue
 }
 
+function getContent () {
+ 
+}
+
+function setContent () {
+}
+
+function clearContent () {
+}
+
 function insertCharacter (keyPressed) {
  lineValue = getValue(current_line, 'textContent')
  newValue = ''
@@ -227,12 +239,21 @@ function executeCommand (keyPressed) {
   return
  }
  if (areSame(keyPressed, 's')) {
+  textContent = getContent()
+  localStorage.setItem(storage_name, textContent) 
+  return
+ }
+ if (areSame(keyPressed, 'z')) {
+  storedProgram = localStorage.getItem(storage_name)
+  clearContent()
+  setContent(storedProgram)
   return
  }
 }
 
 function updateScroll () {
- // complete me
+   newScroll = differenceNumbers(multiplyNumbers(newScroll, font_size), breathing_room)
+   window.scrollTo(0, newScroll)
 }
 
 function secondaryAction (keyEvent) {
