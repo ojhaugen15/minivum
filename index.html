@@ -1,10 +1,10 @@
-<html><head></head><body><script>
+<html><head></head><body style="background: black; color: purple;"><script>
    
 character_width = 10
 font_color = 'purple'
 editor_background = 'black'
 body_padding = 10
-non-line_elements = 2
+nonline_elements = 2
 breathing_room = 10
 storage_name = 'minivumojhaugen'
 
@@ -154,13 +154,62 @@ function toHTML (stringValue, currentIndex, currentOutput) {
 }
 
 function getContent () {
- 
+ searchIndex = non-line_elements
+ editorContent = getValue(body_node, 'children')
+ editorSize = getValue(editorContent, 'length')
+ outputString = ''
+ while (firstGreater(editorSize, searchIndex)) {
+  currentLine = getValue(editorContent, searchIndex)
+  lineContent = getValue(currentLine, 'textContent')
+  outputString = concatenateStrings(outputString, lineContent)
+  outputString = concatenateStrings(outputString, '\n')
+  searchIndex = addNumbers(searchIndex, 1)
+ }
+ return outputString
 }
 
-function setContent () {
+function setContent (textContent, currentIndex) {
+ newLine = ''
+ searchIndex = 0
+ if (arentSame(currentIndex, undefined)) {
+  searchIndex = currentIndex
+ }
+ contentSize = getValue(textContent, 'length')
+ while (firstGreater(contentSize, searchIndex)) {
+  currentCharacter = getValue(textContent, searchIndex)
+  if (areSame(currentCharacter, '\n')) {
+   nextIndex = addNumbers(searchIndex, 1)
+   nextCharacter = getValue(textContent, nextIndex)
+   if (arentSame(nextCharacter, "'")) {
+    createdLine = addLine()
+    setValue(createdLine, 'innerHTML', toHTML(newLine))
+    setContent(textContent, nextIndex)
+    return
+   }
+  }
+  newLine = concatenateStrings(newLine, currentCharacter)
+  searchIndex = addNumbers(searchIndex, 1)
+ }
+ editorContent = getValue(body_node, 'children')
+ lastIndex = differenceNumbers(getValue(editorContent, 'length'), addNumbers(non-line_elements, 1))
+ current_x = 0
+ current_y = lastIndex
+ setCursor()
+ udpateScroll()
+ current_line = getValue(editorContent, lastIndex)
 }
 
 function clearContent () {
+ editorContent = getValue(body_node, 'children')
+ currentLine = getValue(editorContent, non-line_elements)
+ while (arentSame(currentLine, undefined)) {
+  body_node.removeChild(currentLine)
+  currentLine = getValue(editorContent, non-line_elements)
+ }
+ current_line = addLine()
+ current_x = 0
+ current_y = 0
+ setCursor()
 }
 
 function insertCharacter (keyPressed) {
@@ -247,6 +296,9 @@ function executeCommand (keyPressed) {
   storedProgram = localStorage.getItem(storage_name)
   clearContent()
   setContent(storedProgram)
+  current_x = 0
+  current_y = 0
+  setCursor()
   return
  }
 }
@@ -310,4 +362,5 @@ function toString (numberItem) {
  return asString
 }
 
-</script></body></html>
+</script>
+</body></html>
