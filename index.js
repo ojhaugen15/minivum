@@ -1,4 +1,3 @@
-<html><head></head><body><script>
 
 font_size = 13
 character_width = 10
@@ -289,5 +288,3 @@ function toString (numberItem) {
  asString = numberItem.toString()
  return asString
 }
-
-</script></body></html>
