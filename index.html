@@ -36,7 +36,7 @@ function addLine (addAfter) {
  setValue(line_style, 'width', '100%')
  setValue(line_style, 'height', font_size)
  if (arentSame(addAfter, undefined)) {
-  targetElement = getValue(body_node, addNumbers(addAfter, non-line_elements))
+  targetElement = getValue(body_node, addNumbers(addAfter, nonline_elements))
   targetElement.after(new_line)
   return new_line
  }
@@ -69,7 +69,7 @@ function executeAction (keyEvent) {
 
 function getLine (lineIndex) {
  editorContent = getValue(body_node, 'children')
- targetLine = getValue(editorContent, addNumbers(lineIndex, non-line_elements))
+ targetLine = getValue(editorContent, addNumbers(lineIndex, nonline_elements))
  return targetLine
 }
 
@@ -153,7 +153,7 @@ function toHTML (stringValue, currentIndex, currentOutput) {
 }
 
 function getContent () {
- searchIndex = non-line_elements
+ searchIndex = nonline_elements
  editorContent = getValue(body_node, 'children')
  editorSize = getValue(editorContent, 'length')
  outputString = ''
@@ -190,7 +190,7 @@ function setContent (textContent, currentIndex) {
   searchIndex = addNumbers(searchIndex, 1)
  }
  editorContent = getValue(body_node, 'children')
- lastIndex = differenceNumbers(getValue(editorContent, 'length'), addNumbers(non-line_elements, 1))
+ lastIndex = differenceNumbers(getValue(editorContent, 'length'), addNumbers(nonline_elements, 1))
  current_x = 0
  current_y = lastIndex
  setCursor()
@@ -200,10 +200,10 @@ function setContent (textContent, currentIndex) {
 
 function clearContent () {
  editorContent = getValue(body_node, 'children')
- currentLine = getValue(editorContent, non-line_elements)
+ currentLine = getValue(editorContent, nonline_elements)
  while (arentSame(currentLine, undefined)) {
   body_node.removeChild(currentLine)
-  currentLine = getValue(editorContent, non-line_elements)
+  currentLine = getValue(editorContent, nonline_elements)
  }
  current_line = addLine()
  current_x = 0
@@ -278,7 +278,7 @@ function executeCommand (keyPressed) {
   return
  }
  if (areSame(keyPressed, 't')) {
-  editorSize = differenceNumbers(getValue(body_node, 'length'), non-line_elements)
+  editorSize = differenceNumbers(getValue(body_node, 'length'), nonline_elements)
   current_line = getLine(editorSize)
   current_x = 0
   current_y = editorSize
