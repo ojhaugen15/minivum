@@ -161,7 +161,7 @@ function getContent () {
   currentLine = getValue(editorContent, searchIndex)
   lineContent = getValue(currentLine, 'textContent')
   outputString = concatenateStrings(outputString, lineContent)
-  outputString = concatenateStrings(outputString, '\n')
+  outputString = concatenateStrings(outputString, "\n")
   searchIndex = addNumbers(searchIndex, 1)
  }
  return outputString
@@ -180,10 +180,12 @@ function setContent (textContent, currentIndex) {
    nextIndex = addNumbers(searchIndex, 1)
    nextCharacter = getValue(textContent, nextIndex)
    if (arentSame(nextCharacter, "'")) {
-    createdLine = addLine()
-    setValue(createdLine, 'innerHTML', toHTML(newLine))
-    setContent(textContent, nextIndex)
-    return
+    if (arentSame(nextCharacter, '"')) {
+     createdLine = addLine()
+     setValue(createdLine, 'innerHTML', toHTML(newLine))
+     setContent(textContent, nextIndex)
+     return
+    }
    }
   }
   newLine = concatenateStrings(newLine, currentCharacter)
