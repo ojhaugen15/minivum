@@ -155,6 +155,7 @@ function executeBackspace () {
   console.log(current_y)
   current_y = differenceNumbers(current_y, 1)
   current_line = getLine(current_y)
+  console.log(current_line)
   otherValue = getValue(current_line, 'textContent')
   newValue = concatenateStrings(otherValue, lineValue)
   setValue(current_line, 'innerHTML', toHTML(newValue))
@@ -366,7 +367,6 @@ function executeCommand (keyPressed) {
   editorSize = getSize()
   lastIndex = differenceNumbers(editorSize, 1)
   current_line = getLine(lastIndex)
-  console.log(current_line)
   current_x = 0
   current_y = editorSize
   setCursor()
