@@ -155,7 +155,7 @@ function executeBackspace () {
   console.log(current_y)
   current_y = differenceNumbers(current_y, 1)
   current_line = getLine(current_y)
-  console.log(current_y, current_line, body.document.children.length)
+  console.log(current_y, current_line, document.body.children.length)
   otherValue = getValue(current_line, 'textContent')
   newValue = concatenateStrings(otherValue, lineValue)
   setValue(current_line, 'innerHTML', toHTML(newValue))
