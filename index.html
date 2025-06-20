@@ -1,5 +1,5 @@
 <html><head></head><body><script>
-console.log('LMFAO')
+console.log('YOLO')
  
 character_width = 7.8
 font_size = 13
@@ -364,7 +364,8 @@ function executeCommand (keyPressed) {
  if (areSame(keyPressed, 't')) {
   editorContent = getValue(body_node, 'children')
   editorSize = differenceNumbers(getValue(editorContent, 'length'), nonline_elements)
-  current_line = getLine(editorSize)
+  lastIndex = differenceNumbers(editorSize, 1)
+  current_line = getLine(lastIndex)
   current_x = 0
   current_y = editorSize
   setCursor()
