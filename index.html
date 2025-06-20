@@ -1,5 +1,4 @@
 <html><head></head><body><script>
-console.log('YOLO')
  
 character_width = 7.8
 font_size = 13
@@ -152,10 +151,8 @@ function executeBackspace () {
   }
   lineValue = getValue(current_line, 'textContent')
   body_node.removeChild(current_line)
-  console.log(current_y)
   current_y = differenceNumbers(current_y, 1)
   current_line = getLine(current_y)
-  console.log(current_y, current_line, document.body.children.length)
   otherValue = getValue(current_line, 'textContent')
   newValue = concatenateStrings(otherValue, lineValue)
   setValue(current_line, 'innerHTML', toHTML(newValue))
@@ -368,7 +365,7 @@ function executeCommand (keyPressed) {
   lastIndex = differenceNumbers(editorSize, 1)
   current_line = getLine(lastIndex)
   current_x = 0
-  current_y = editorSize
+  current_y = lastIndex
   setCursor()
   updateScroll()
   return
