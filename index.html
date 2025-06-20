@@ -1,5 +1,5 @@
 <html><head></head><body><script>
-console.log('YOLO')
+console.log('LOL')
  
 character_width = 7.8
 font_size = 13
@@ -152,6 +152,7 @@ function executeBackspace () {
   }
   lineValue = getValue(current_line, 'textContent')
   body_node.removeChild(current_line)
+  console.log(current_y)
   current_y = differenceNumbers(current_y, 1)
   current_line = getLine(current_y)
   otherValue = getValue(current_line, 'textContent')
@@ -362,10 +363,10 @@ function executeCommand (keyPressed) {
   return
  }
  if (areSame(keyPressed, 't')) {
-  editorContent = getValue(body_node, 'children')
-  editorSize = differenceNumbers(getValue(editorContent, 'length'), nonline_elements)
+  editorSize = getSize()
   lastIndex = differenceNumbers(editorSize, 1)
   current_line = getLine(lastIndex)
+  console.log(current_line)
   current_x = 0
   current_y = editorSize
   setCursor()
