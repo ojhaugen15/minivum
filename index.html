@@ -10,6 +10,9 @@ breathing_room = 10
 storage_name = 'minivumojhaugen'
 cursor_opacity = '0.4'
 space_code = '&nbsp;'
+left_bracket = '&lt;'
+right_bracket = '&gt;'
+and_symbol = '&amp;'
 cursor_padding = 8
 
 command_mode = true
@@ -185,6 +188,18 @@ function toHTML (stringValue, currentIndex, currentOutput) {
   currentCharacter = getValue(stringValue, searchIndex)
   if (areSame(currentCharacter, ' ')) {
    newValue =  concatenateStrings(newValue, space_code)
+   return toHTML(stringValue, addNumbers(searchIndex, 1), newValue)
+  }
+  if (areSame(currentCharacter, '<')) {
+   newValue =  concatenateStrings(newValue, left_bracket)
+   return toHTML(stringValue, addNumbers(searchIndex, 1), newValue)
+  }
+  if (areSame(currentCharacter, '>')) {
+   newValue =  concatenateStrings(newValue, right_bracket)
+   return toHTML(stringValue, addNumbers(searchIndex, 1), newValue)
+  }
+  if (areSame(currentCharacter, '&')) {
+   newValue =  concatenateStrings(newValue, and_symbol)
    return toHTML(stringValue, addNumbers(searchIndex, 1), newValue)
   }
   newValue =  concatenateStrings(newValue, currentCharacter)
