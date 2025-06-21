@@ -6,7 +6,6 @@ font_color = 'purple'
 font_style = 'Courier'
 editor_background = 'black'
 body_padding = 10
-nonline_elements = 2
 breathing_room = 10
 storage_name = 'minivumojhaugen'
 cursor_opacity = '0.4'
@@ -17,6 +16,7 @@ and_symbol = '&amp;'
 cursor_padding = 8
 
 command_mode = true
+nonline_elements = 2
 
 body_node = getValue(document, 'body')
 body_style = getValue(body_node, 'style')
@@ -307,6 +307,17 @@ function insertCharacter (keyPressed) {
 function executeCommand (keyPressed) {
  if (areSame(keyPressed, 'i')) {
   command_mode = false
+  return
+ }
+ if (areSame(keyPressed, ';')) {
+  newProgram = getContent()
+  oldProgram = document.getElementByID(program_id)
+  body_node.removeChild(oldProgram)
+  nonline_elements = 3
+  programElement = document.createElement('script')
+  programElement.text = newProgram
+  firstElement = getValue(getValue(body_node, 'children'), 0)
+  firstElement.after(programElement)
   return
  }
  if (areSame(keyPressed, 'j')) {
