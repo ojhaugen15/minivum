@@ -1,4 +1,5 @@
 <html><head></head><body><script>
+console.log('LOL')
  
 character_width = 7.8
 font_size = 13
@@ -319,6 +320,7 @@ function executeCommand (keyPressed) {
   nonline_elements = 3
   programElement = document.createElement('script')
   programElement.text = newProgram
+  programElement.id = interior_program
   firstElement = getValue(getValue(body_node, 'children'), 0)
   firstElement.after(programElement)
   return
