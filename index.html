@@ -14,6 +14,7 @@ left_bracket = '&lt;'
 right_bracket = '&gt;'
 and_symbol = '&amp;'
 cursor_padding = 8
+interior_program = 'programojhaugen'
 
 command_mode = true
 nonline_elements = 2
@@ -311,7 +312,7 @@ function executeCommand (keyPressed) {
  }
  if (areSame(keyPressed, ';')) {
   newProgram = getContent()
-  oldProgram = document.getElementByID(program_id)
+  oldProgram = document.getElementByID(interior_program)
   body_node.removeChild(oldProgram)
   nonline_elements = 3
   programElement = document.createElement('script')
