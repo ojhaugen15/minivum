@@ -314,6 +314,9 @@ function executeCommand (keyPressed) {
  if (areSame(keyPressed, ';')) {
   newProgram = getContent()
   oldProgram = getElement(interior_program)
+  if (areSame(oldProgram, undefined)) {
+   return
+  }
   body_node.removeChild(oldProgram)
   nonline_elements = 3
   programElement = document.createElement('script')
