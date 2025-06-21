@@ -1,5 +1,5 @@
 <html><head></head><body><script>
-console.log('LOL')
+console.log('LMFAO')
  
 character_width = 7.8
 font_size = 13
@@ -313,7 +313,7 @@ function executeCommand (keyPressed) {
  }
  if (areSame(keyPressed, ';')) {
   newProgram = getContent()
-  oldProgram = document.getElementByID(interior_program)
+  oldProgram = getElement(interior_program)
   body_node.removeChild(oldProgram)
   nonline_elements = 3
   programElement = document.createElement('script')
@@ -401,9 +401,22 @@ function executeCommand (keyPressed) {
  }
 }
 
+function getElement (elementID) {
+ editorElements = getValue(body_node, 'children')
+ searchIndex = 0
+ while (firstGreater(nonline_elements, searchIndex)) {
+  currentElement = getValue(editorElements, searchIndex)
+  currentID = getValue(currentElement, 'id')
+  if (areSame(elementID, currentID)) {
+   return currentElement
+  }
+  searchIndex = addNumbers(searchIndex, 1)
+ }
+}
+
 function updateScroll () {
-   newScroll = differenceNumbers(multiplyNumbers(current_y, font_size), breathing_room)
-   window.scrollTo(0, newScroll)
+  newScroll = differenceNumbers(multiplyNumbers(current_y, font_size), breathing_room)
+  window.scrollTo(0, newScroll)
 }
 
 function secondaryAction (keyEvent) {
