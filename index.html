@@ -1,5 +1,4 @@
 <html><head></head><body><script>
-console.log('ROFL')
  
 character_width = 7.8
 font_size = 13
@@ -314,10 +313,9 @@ function executeCommand (keyPressed) {
  if (areSame(keyPressed, ';')) {
   newProgram = getContent()
   oldProgram = getElement(interior_program)
-  if (areSame(oldProgram, undefined)) {
-   return
+  if (arentSame(oldProgram, undefined)) {
+   body_node.removeChild(oldProgram)
   }
-  body_node.removeChild(oldProgram)
   nonline_elements = 3
   programElement = document.createElement('script')
   programElement.text = newProgram
