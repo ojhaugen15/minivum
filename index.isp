@@ -1,0 +1,357 @@
+a character_width 7.8
+a font_size 13
+a font_color 'purple'
+a font_style 'Courier'
+a editor_background 'black'
+a body_padding 10
+a breathing_room 10
+a storage_name 'minivumojhaugen'
+a cursor_opacity '0.4'
+a space_code '&nbsp;'
+a left_bracket '&lt;'
+a right_bracket '&gt;'
+a and_symbol '&amp;'
+a cursor_padding 8
+a interior_program 'programojhaugen'
+
+a command_mode true
+a nonline_elements 2
+
+a body_node :getValue document 'body';
+a body_style :getValue body_node 'style';
+setValue body_style 'background' editor_background
+setValue body_style 'color' font_color
+setValue body_style 'fontSize' font_size
+setValue body_style 'fontFamily' font_style
+setValue body_style 'fontWeight' 'bold'
+
+a cursor_element :document.createElement 'div';
+a cursor_style :getValue cursor_element 'style';
+body_node.appendChild cursor_element
+setValue cursor_style 'height' font_size
+setValue cursor_style 'width' character_width
+setValue cursor_style 'background' font_color
+setValue cursor_style 'opacity' cursor_opacity
+setValue cursor_style 'position' 'absolute'
+a current_x 0
+a current_y 0
+setCursor
+
+a current_line :addLine;
+body_node.addEventListener 'keydown' executeAction
+body_node.addEventListener 'keyup' secondaryAction
+
+:addLine addAfter
+:a new_line :document.createElement 'div';
+:setValue new_line 'textContent'
+:a line_style :getValue new_line 'style';
+:setValue line_style 'width' '100%'
+:setValue line_style 'height' font_size
+:i :arentSame addAfter undefined;
+::a editorContent :getValue body_node 'children';
+::a targetElement :getValue editorContent :addNumbers addAfter nonline_elements;;
+::targetElement.after new_line
+::e new_line
+:body_node.appendChild new_line
+:e new_line
+
+:setCursor
+:setValue cursor_style 'top' :addNumbers :multiplyNumbers font_size current_y; cursor_padding;
+:setValue cursor_style 'left' :addNumbers :multiplyNumbers character_width current_x; cursor_padding;
+
+:executeAction keyEvent
+:a keyPressed :getValue keyEvent 'key';
+:i :keyMuted keyPressed;
+::e
+:i :areSame command_mode false;
+::i :areSame keyPressed 'Enter';
+:::executeEnter
+:::e
+::i :areSame keyPressed 'Backspace';
+:::executeBackspace
+:::e
+::i :areSame keyPressed ' ';
+:::keyEvent.preventDefault
+::insertCharacter keyPressed
+::e
+:executeCommand keyPressed
+
+:keyMuted keyPressed
+:i :areSame keyPressed 'Meta';
+::e true
+:i :areSame keyPressed 'Escape';
+::e true
+:i :areSame keyPressed 'Alt';
+::e true
+:i :areSame keyPressed 'Control';
+::e true
+:i :areSame keyPressed 'Shift';
+::e true
+:i :areSame keyPressed 'CapsLock';
+::e true
+:i :areSame keyPressed 'Tab';
+::e true
+
+:getLine lineIndex
+:a editorContent :getValue body_node 'children';
+:e :getValue editorContent :addNumbers lineIndex nonline_elements;;
+
+:executeEnter
+:a line1 :getValue current_line 'textContent';
+:a last1 line1
+:a searchIndex 0
+:a searchTarget :differenceNumbers current_x 1;
+:i :arentSame searchTarget searchIndex;
+::a last1 :y last1;
+::a searchIndex :addNumbers searchIndex 1;
+:a line2 :y last1;
+:y last1 null line1
+:i :areSame current_x 0;
+::a line2 line1
+::a line1 ''
+:a newLine :addLine current_y;
+:setValue current_line 'innerHTML' :toHTML line1;
+:setValue newLine 'innerHTML' :toHTML line2;
+:a current_y :addNumbers current_y 1;
+:a current_x 0
+:setCursor
+:a current_line newLine
+
+:executeBackspace 
+:i :areSame current_x 0;
+::i :areSame current_y 0;
+:::e
+::a lineValue :getValue current_line 'textContent';
+::body_node.removeChild current_line
+::a current_y :differenceNumbers current_y 1;
+::a current_line :getLine current_y;
+::a otherValue :getValue current_line 'textContent';
+::a current_x :getLength otherValue;
+::setValue current_line 'innerHTML' :toHTML :o otherValue lineValue;;
+::setCursor
+::e
+:a lineValue :getValue current_line 'textContent';
+:i :areSame current_x 1;
+::a lineValue :y lineValue;
+::setValue current_line 'innerHTML' :toHTML lineValue;
+::a current_x :differenceNumbers current_x 1;
+::setCursor
+::e
+:a replacementIndex :differenceNumbers current_x 2;
+:a keyNode lineValue
+:a searchIndex 0
+:i :arentSame keyNode null;
+::i :areSame replacementIndex searchIndex;
+:::a operativeNode keyNode
+:::a keyNode null
+::a searchIndex :addNumbers searchIndex 1;
+::a keyNode :y keyNode;
+:y operativeNode :y :y operativeNode;;
+:setValue current_line 'innerHTML' :toHTML lineValue;
+:a current_x :differenceNumbers current_x 1;
+:setCursor
+
+:toHTML stringValue
+:a currentNode stringValue
+:i :arentSame currentNode null;
+::a currentCharacter :u currentNode;
+::i :areSame currentCharacter ' ';
+:::a spaceCode space_code
+:::y previousNode spaceCode
+:::y :o spaceCode; :y currentNode; stringValue 
+::i :areSame currentCharacter '<';
+:::a leftBracket left_bracket
+:::y previousNode leftBracket
+:::y :o leftBracket; :y currentNode; stringValue
+::i :areSame currentCharacter '>';
+:::a rightBracket right_bracket
+:::y previousNode rightBracket
+:::y :o rightBracket; :y currentNode; stringValue
+::i :areSame currentCharacter '&';
+:::a andSymbol and_symbol
+:::y previousNode andSymbol
+:::y :o andSymbol; :y currentNode; stringValue
+::a previousNode currentNode;
+::a currentNode :y currentNode;
+:e stringValue
+
+:getContent
+:a searchIndex nonline_elements
+:a editorContent :getValue :body_node 'children';;
+:a editorSize :getValue editorContent 'length';
+:a outputString ''
+:i :firstGreater editorSize searchIndex;
+::a lineContent :getValue :getValue editorContent searchIndex; 'textContent';
+::o lineContent '\n'
+::o outputString lineContent
+::a searchIndex :addNumbers searchIndex 1;
+:e outputString
+
+:clearContent
+:a editorContent :getValue body_node 'children';
+:a currentLine :getValue editorContent nonline_elements;
+:i :arentSame currentLine undefined;
+::body_node.removeChild currentLine
+::a currentLine :getValue editorContent nonline_elements;
+
+:setContent textContent
+:a newLine ''
+:a searchIndex 0
+:a contentSize :getLength textContent;
+:i :firstGreater contentSize searchIndex;
+::a currentCharacter :getValue textContent searchIndex;
+::i :areSame currentCharacter '\n';
+:::a nextCharacter :getValue textContent :addNumbers searchIndex 1;;
+:::i :arentSame nextCharacter "'";
+::::i :arentSame nextCharacter '"';
+:::::a createdLine :addLine;
+:::::setValue createdLine 'innerHTML' :toHTML newLine;
+:::::a newLine ''
+:::::a currentCharacter ''
+::o newLine currentCharacter
+::a searchIndex :addNumbers searchIndex 1;
+:a current_x 0
+:a current_y :differenceNumbers :getValue :getValue body_node 'children'; 'length'; :addNumbers nonline_elements 1;;
+:setCursor
+:updateScroll
+:current_line createdLine
+
+:getSize
+:e :differenceNumbers :getValue :getValue body_node 'children'; 'length'; nonline_elements;
+
+:insertCharacter keyPressed
+:a lineValue :getValue current_line 'textContent';
+:a lineSize :getLength lineValue;
+:i :areSame lineSize current_x;
+::setValue current_line 'innerHTML' :toHTML :o lineValue keyPressed;;
+::a current_x :addNumbers current_x 1;
+::setCursor
+::e
+:a searchIndex 0
+:a searchTarget :differenceNumbers current_x 1;
+:a currentNode lineValue
+:i :arentSame currentNode null;
+::i :areSame searchTarget searchIndex;
+:::a stringEnd :y :y currentNode;;
+:::o keyPressed stringEnd
+:::y currentNode keyPressed lineValue
+:::setValue current_line 'innerHTML' :toHTML lineValue;
+:::a current_x :addNumbers current_x 1;
+:::setCursor 
+:::e
+::a currentNode :y currentNode;
+
+:executeCommand keyPressed
+:i :areSame keyPressed 'i';
+::a command_mode false
+::e
+:i :areSame keyPressed ';';
+::a newProgram :getContent;
+::a oldProgram :getElement interior_program;
+::i :arentSame oldProgram undefined;
+:::body_node.removeChild oldProgram
+::nonline_elements 3
+::a programElement :document.createElement 'script';
+::setValue 'text' newProgram
+::setValue 'id' interior_program
+::a firstElement :getValue :getValue body_node 'children'; 0;
+::firstElement.after programElement
+::e
+:i :areSame keyPressed 'j';
+::i :areSame current_y 0;
+:::e
+::a previousY :differenceNumbers current_y 1;
+::a current_line :getLine previousY;
+::a current_y previousY
+::a current_x 0
+::setCursor
+::e
+:i :areSame keyPressed 'k';
+::i :areSame current_y :differenceNumbres :getSize; 1;;
+:::e
+::a nextY :addNumbers current_y 1;
+::a current_line :getLine nextY;
+::a current_y nextY
+::a current_x 0
+::setCursor
+::e
+:i :areSame keyPressed 'h';
+::i :areSame current_x 0;
+:::e
+::a current_x :differenceNumbers current_x 1;
+::setCursor
+::e
+:i :areSame keyPressed 'l';
+::i :areSame current_x :getLength :getValue current_line 'textContent';;;f
+:::e
+::a current_x :addNumbers current_x 1;
+::setCursor
+::e
+:i :areSame keyPressed 'g';
+::a current_line :getLine 0;
+::a current_x 0
+::a current_y 0
+::setCursor
+::updateScroll
+::e
+:i :areSame keyPressed 't';
+::a lastIndex :differenceNumbers :getSize; 1;
+::a current_line :getLine lastIndex;
+::a current_x 0
+::a current_y lastIndex
+::setCursor
+::updateScroll
+::e
+:i :areSame keyPressed 's';
+::localStorage.setItem storage_name :getContent;
+::e
+:i :areSame keyPressed 'z';
+::clearContent
+::setContent :localStorage.getItem storage_name;
+::a current_x 0
+::a current_y 0
+::a current_line :getLine 0;
+::setCursor
+::updateScroll
+::e
+
+:getElement elementID
+:a editorElements :getValue body_node 'children';
+:a searchIndex 0
+:a numberElements :getValue editorElements 'length';
+:i :firstGreater numberElements searchIndex;
+::a currentElement :getValue editorElements searchIndex;
+::a currentID :getValue currentElement 'id';
+::i :areSame elementID currentID;
+:::e currentElement
+::a searchIndex :addNumbers searchIndex 1;
+
+:updateScroll
+:window.scrollTo 0 :differenceNumbers :multiplyNumbers current_y font_size; breathing_room;
+
+:secondaryAction keyEvent
+:a keyPressed :getValue keyEvent 'key';
+:i :areSame keyPressed 'Escape';
+::a command_mode true
+::e
+
+:getLength stringValue
+:a currentNode stringValue
+:a lengthCount 0
+:i :arentSame currentNode null
+::a lengthCount :addNumbers lengthCount 1;
+::a currentNode :y currentNode;
+:e lengthCount
+
+///
+
+UTILITY FUNCTIONS
+
+arentSame
+areSame
+differenceNumbers
+addNumbers
+firstGreater
+multiplyNumbers
+getValue
+setValue
