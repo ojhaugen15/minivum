@@ -1,5 +1,5 @@
 <html><head></head><body><script>
-console.log('update')
+console.log('UPDATE')
  
 character_width = 7.8
 font_size = 13
@@ -50,6 +50,7 @@ function addLine (addAfter) {
  line_style = getValue(new_line, 'style')
  setValue(line_style, 'width', '100%')
  setValue(line_style, 'height', font_size)
+ setValue(new_line, 'className', 'minivum-line')
  if (arentSame(addAfter, undefined)) {
   editorContent = getValue(body_node, 'children')
   targetElement = getValue(editorContent, addNumbers(addAfter, nonline_elements))
@@ -318,6 +319,21 @@ function insertCharacter (keyPressed) {
  }
 }
 
+function countNonline () {
+ editorContent = getValue(body_node, 'children')
+ searchIndex = 0
+ contentSize = getValue(editorContent, 'length')
+ while (firstGreater(contentSize, searchIndex)) {
+  currentElement = getValue(editorContent, searchIndex)
+  elementClassname = getValue(currentElement, 'className')
+  if (areSame(elementClassname, 'minivum-line')) {
+   return searchIndex   
+  }
+  searchIndex = addNumbers(searchIndex, 1)
+ }
+ return searchIndex
+}
+
 function executeCommand (keyPressed) {
  if (areSame(keyPressed, 'i')) {
   command_mode = false
@@ -329,7 +345,7 @@ function executeCommand (keyPressed) {
   if (arentSame(oldProgram, undefined)) {
    body_node.removeChild(oldProgram)
   }
-  nonline_elements = 3
+  nonline_elements = countNonline()
   programElement = document.createElement('script')
   if (ispDetected(newProgram)) {
    newProgram = transpileIsp(newProgram)
