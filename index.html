@@ -330,6 +330,9 @@ function executeCommand (keyPressed) {
   }
   nonline_elements = 3
   programElement = document.createElement('script')
+  if (ispDetected(newProgram)) {
+   newProgram = transpileIsp(newProgram)
+  }
   programElement.text = newProgram
   programElement.id = interior_program
   firstElement = getValue(getValue(body_node, 'children'), 0)
@@ -413,6 +416,28 @@ function executeCommand (keyPressed) {
   updateScroll()
   return
  }
+}
+
+function ispDetected (programText) {
+ searchIndex = 0
+ searchMaximum = 1000
+ startingColons = 0
+ numberSought = 2
+ while (firstGreater(searchMaximum, searchIndex)) {
+  currentCharacter = getValue(programText, searchIndex)
+  if (areSame(currentCharacter, '\n')) {
+   nextIndex = addNumbers(searchIndex, 1)
+   nextCharacter = getValue(programText, nextIndex)
+   if (areSame(nextCharacter, ':')) {
+    startingColons = addNumbers(startingColons, 1)
+    if (areSame(startingColons, numberSought)) {
+     return true
+    }
+   }
+  }
+  searchIndex = addNumbers(searchIndex, 1)
+ }
+ return false
 }
 
 function getElement (elementID) {
