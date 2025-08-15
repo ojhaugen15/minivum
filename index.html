@@ -332,6 +332,7 @@ function executeCommand (keyPressed) {
   programElement = document.createElement('script')
   if (ispDetected(newProgram)) {
    newProgram = transpileIsp(newProgram)
+   console.log('isp newProgram: ', newProgram)
   }
   programElement.text = newProgram
   programElement.id = interior_program
