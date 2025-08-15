@@ -232,8 +232,10 @@ function getContent () {
  while (firstGreater(editorSize, searchIndex)) {
   currentLine = getValue(editorContent, searchIndex)
   lineContent = getValue(currentLine, 'textContent')
-  outputString = concatenateStrings(outputString, lineContent)
-  outputString = concatenateStrings(outputString, "\n")
+  if (arentSame(lineContent, 'undefined')) {
+   outputString = concatenateStrings(outputString, lineContent)
+   outputString = concatenateStrings(outputString, "\n")
+  }
   searchIndex = addNumbers(searchIndex, 1)
  }
  return outputString
