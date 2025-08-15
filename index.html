@@ -423,6 +423,10 @@ function ispDetected (programText) {
  searchMaximum = 1000
  startingColons = 0
  numberSought = 2
+ firstCharacter = getValue(programText, 0)
+ if (areSame(firstCharacter, ':')) {
+  startingColons = 1
+ }
  while (firstGreater(searchMaximum, searchIndex)) {
   currentCharacter = getValue(programText, searchIndex)
   if (areSame(currentCharacter, '\n')) {
