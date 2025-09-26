@@ -1,4 +1,6 @@
 <html><head></head><body><script>
+
+console.log('testing')
  
 character_width = 7.8
 font_size = 13
@@ -80,6 +82,7 @@ function executeAction (keyEvent) {
    return
   }
   if (areSame(keyPressed, ' ')) {
+   console.log('hello')
    keyEvent.preventDefault()
   }
   insertCharacter(keyPressed)
