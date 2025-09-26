@@ -1,6 +1,6 @@
 <html><head></head><body><script>
 
-console.log('TESTING')
+console.log('testing')
  
 character_width = 7.8
 font_size = 13
@@ -72,6 +72,9 @@ function executeAction (keyEvent) {
  if (keyMuted(keyPressed)) {
   return
  }
+ if (areSame(keyPressed, ' ')) {
+  keyEvent.preventDefault()
+ }
  if (areSame(command_mode, false)) {
   if (areSame(keyPressed, 'Enter')) {
    executeEnter()
@@ -80,10 +83,6 @@ function executeAction (keyEvent) {
   if (areSame(keyPressed, 'Backspace')) {
    executeBackspace()
    return
-  }
-  if (areSame(keyPressed, ' ')) {
-   console.log('hello')
-   keyEvent.preventDefault()
   }
   insertCharacter(keyPressed)
   return
