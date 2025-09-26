@@ -72,9 +72,6 @@ function executeAction (keyEvent) {
  if (keyMuted(keyPressed)) {
   return
  }
- if (areSame(keyPressed, ' ')) {
-  keyEvent.preventDefault()
- }
  if (areSame(command_mode, false)) {
   if (areSame(keyPressed, 'Enter')) {
    executeEnter()
@@ -83,6 +80,9 @@ function executeAction (keyEvent) {
   if (areSame(keyPressed, 'Backspace')) {
    executeBackspace()
    return
+  }
+  if (areSame(keyPressed, ' ')) {
+   keyEvent.preventDefault()
   }
   insertCharacter(keyPressed)
   return
