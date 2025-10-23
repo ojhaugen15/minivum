@@ -1,6 +1,6 @@
 <html><head></head><body><script>
 
-console.log('testing')
+console.log('TESTING')
  
 character_width = 7.8
 font_size = 13
@@ -485,6 +485,7 @@ function updateScroll () {
 
 function secondaryAction (keyEvent) {
  keyPressed = keyEvent.key
+ keyEvent.preventDefault()
  if (areSame(keyPressed, 'Escape')) {
   command_mode = true
   return
