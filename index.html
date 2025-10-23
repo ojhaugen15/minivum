@@ -69,7 +69,7 @@ function setCursor () {
 
 function executeAction (keyEvent) {
  keyPressed = keyEvent.key
- if (keyMuted(keyPressed)) {
+ if (keyMuted(keyPressed, keyEvent)) {
   return
  }
  if (areSame(command_mode, false)) {
@@ -90,11 +90,12 @@ function executeAction (keyEvent) {
  executeCommand(keyPressed)
 }
 
-function keyMuted (keyPressed) {
+function keyMuted (keyPressed, keyEvent) {
  if (areSame(keyPressed, 'Meta')) {
   return true
  }
  if (areSame(keyPressed, 'Escape')) {
+  keyEvent.preventDefault()
   return true
  }
  if (areSame(keyPressed, 'Alt')) {
