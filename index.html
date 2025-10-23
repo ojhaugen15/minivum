@@ -1,4 +1,5 @@
 <html><head></head><body><script>
+console.log('testing')
  
 character_width = 7.8
 font_size = 13
@@ -66,8 +67,14 @@ function setCursor () {
 }
 
 function executeAction (keyEvent) {
- keyPressed = keyEvent.key
- if (keyMuted(keyPressed, keyEvent)) {
+ keyPressed = getValue(keyEvent, 'key')
+ if (areSame(keyPressed, 'Escape)) {
+  keyEvent.preventDefault()
+ }
+ if (areSame(keyPressed, "'")) {
+  keyEvent.preventDefault()
+ }
+ if (keyMuted(keyPressed)) {
   return
  }
  if (areSame(command_mode, false)) {
@@ -88,12 +95,11 @@ function executeAction (keyEvent) {
  executeCommand(keyPressed)
 }
 
-function keyMuted (keyPressed, keyEvent) {
+function keyMuted (keyPressed) {
  if (areSame(keyPressed, 'Meta')) {
   return true
  }
  if (areSame(keyPressed, 'Escape')) {
-  keyEvent.preventDefault()
   return true
  }
  if (areSame(keyPressed, 'Alt')) {
