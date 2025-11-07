@@ -89,6 +89,9 @@ function executeAction (keyEvent) {
   if (areSame(keyPressed, ' ')) {
    keyEvent.preventDefault()
   }
+  if (areSame(keyPressed, '/')) {
+   keyEvent.preventDefault()
+  }
   insertCharacter(keyPressed)
   return
  }
