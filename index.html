@@ -71,6 +71,9 @@ function executeAction (keyEvent) {
  if (areSame(keyPressed, 'Escape')) {
   keyEvent.preventDefault()
  }
+ if (areSame(keyPressed, ' ')) {
+  keyEvent.preventDefault()
+ }
  if (areSame(keyPressed, "'")) {
   keyEvent.preventDefault()
  }
@@ -85,9 +88,6 @@ function executeAction (keyEvent) {
   if (areSame(keyPressed, 'Backspace')) {
    executeBackspace()
    return
-  }
-  if (areSame(keyPressed, ' ')) {
-   keyEvent.preventDefault()
   }
   if (areSame(keyPressed, '/')) {
    keyEvent.preventDefault()
