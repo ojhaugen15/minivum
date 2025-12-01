@@ -52,8 +52,8 @@ function addLine (addAfter) {
  setValue(line_style, 'height', font_size)
  setValue(new_line, 'className', 'minivum-line')
  if (arentSame(addAfter, undefined)) {
-  editorContent = getValue(body_node, 'children')
-  targetElement = getValue(editorContent, addNumbers(addAfter, nonline_elements))
+  var editorContent = getValue(body_node, 'children')
+  var targetElement = getValue(editorContent, addNumbers(addAfter, nonline_elements))
   targetElement.after(new_line)
   return new_line
  }
@@ -67,7 +67,7 @@ function setCursor () {
 }
 
 function executeAction (keyEvent) {
- keyPressed = getValue(keyEvent, 'key')
+ var keyPressed = getValue(keyEvent, 'key')
  if (areSame(keyPressed, 'Escape')) {
   keyEvent.preventDefault()
  }
@@ -138,28 +138,28 @@ function keyMuted (keyPressed) {
 }
 
 function getLine (lineIndex) {
- editorContent = getValue(body_node, 'children')
- targetLine = getValue(editorContent, addNumbers(lineIndex, nonline_elements))
+ var editorContent = getValue(body_node, 'children')
+ var targetLine = getValue(editorContent, addNumbers(lineIndex, nonline_elements))
  return targetLine
 }
 
 function executeEnter () {
- line1 = ''
- line2 = ''
- currentValue = getValue(current_line, 'textContent')
- currentSize = getValue(currentValue, 'length')
- searchIndex = 0
+ var line1 = ''
+ var line2 = ''
+ var currentValue = getValue(current_line, 'textContent')
+ var currentSize = getValue(currentValue, 'length')
+ var searchIndex = 0
  while (arentSame(current_x, searchIndex)) {
-  currentCharacter = getValue(currentValue, searchIndex)
+  var currentCharacter = getValue(currentValue, searchIndex)
   line1 = concatenateStrings(line1, currentCharacter)
   searchIndex = addNumbers(searchIndex, 1)
  }
  while (firstGreater(currentSize, searchIndex)) {
-  currentCharacter = getValue(currentValue, searchIndex)
+  var currentCharacter = getValue(currentValue, searchIndex)
   line2 = concatenateStrings(line2, currentCharacter)
   searchIndex = addNumbers(searchIndex, 1)
  }
- newLine = addLine(current_y)
+ var newLine = addLine(current_y)
  setValue(current_line, 'innerHTML', toHTML(line1))
  setValue(newLine, 'innerHTML', toHTML(line2))
  current_y = addNumbers(current_y, 1)
@@ -173,24 +173,24 @@ function executeBackspace () {
   if (areSame(current_y, 0)) {
    return
   }
-  lineValue = getValue(current_line, 'textContent')
+  var lineValue = getValue(current_line, 'textContent')
   body_node.removeChild(current_line)
   current_y = differenceNumbers(current_y, 1)
   current_line = getLine(current_y)
-  otherValue = getValue(current_line, 'textContent')
-  newValue = concatenateStrings(otherValue, lineValue)
+  var otherValue = getValue(current_line, 'textContent')
+  var newValue = concatenateStrings(otherValue, lineValue)
   setValue(current_line, 'innerHTML', toHTML(newValue))
   current_x = getValue(otherValue, 'length')
   setCursor()
   return
  }
- lineValue = getValue(current_line, 'textContent')
- newValue = ''
- searchIndex = 0
- lineSize = getValue(lineValue, 'length')
- previousX = differenceNumbers(current_x, 1)
+ var lineValue = getValue(current_line, 'textContent')
+ var newValue = ''
+ var searchIndex = 0
+ var lineSize = getValue(lineValue, 'length')
+ var previousX = differenceNumbers(current_x, 1)
  while (firstGreater(lineSize, searchIndex)) {
-  currentCharacter = getValue(lineValue, searchIndex)
+  var currentCharacter = getValue(lineValue, searchIndex)
   if (arentSame(searchIndex, previousX)) {
    newValue = concatenateStrings(newValue, currentCharacter)
   }
@@ -202,15 +202,15 @@ function executeBackspace () {
 }
 
 function toHTML (stringValue, currentIndex, currentOutput) {
- stringSize = getValue(stringValue, 'length')
- searchIndex = 0
- newValue = ''
+ var stringSize = getValue(stringValue, 'length')
+ var searchIndex = 0
+ var newValue = ''
  if (arentSame(currentIndex, undefined)) {
   searchIndex = currentIndex
   newValue = currentOutput
  }
  while (firstGreater(stringSize, searchIndex)) {
-  currentCharacter = getValue(stringValue, searchIndex)
+  var currentCharacter = getValue(stringValue, searchIndex)
   if (areSame(currentCharacter, ' ')) {
    newValue =  concatenateStrings(newValue, space_code)
    return toHTML(stringValue, addNumbers(searchIndex, 1), newValue)
@@ -234,13 +234,13 @@ function toHTML (stringValue, currentIndex, currentOutput) {
 }
 
 function getContent () {
- searchIndex = nonline_elements
- editorContent = getValue(body_node, 'children')
- editorSize = getValue(editorContent, 'length')
- outputString = ''
+ var searchIndex = nonline_elements
+ var editorContent = getValue(body_node, 'children')
+ var editorSize = getValue(editorContent, 'length')
+ var outputString = ''
  while (firstGreater(editorSize, searchIndex)) {
-  currentLine = getValue(editorContent, searchIndex)
-  lineContent = getValue(currentLine, 'textContent')
+  var currentLine = getValue(editorContent, searchIndex)
+  var lineContent = getValue(currentLine, 'textContent')
   if (arentSame(lineContent, 'undefined')) {
    outputString = concatenateStrings(outputString, lineContent)
    outputString = concatenateStrings(outputString, "\n")
@@ -251,8 +251,8 @@ function getContent () {
 }
 
 function clearContent () {
- editorContent = getValue(body_node, 'children')
- currentLine = getValue(editorContent, nonline_elements)
+ var editorContent = getValue(body_node, 'children')
+ var currentLine = getValue(editorContent, nonline_elements)
  while (arentSame(currentLine, undefined)) {
   body_node.removeChild(currentLine)
   currentLine = getValue(editorContent, nonline_elements)
@@ -260,20 +260,20 @@ function clearContent () {
 }
 
 function setContent (textContent, currentIndex) {
- newLine = ''
- searchIndex = 0
+ var newLine = ''
+ var searchIndex = 0
  if (arentSame(currentIndex, undefined)) {
   searchIndex = currentIndex
  }
- contentSize = getValue(textContent, 'length')
+ var contentSize = getValue(textContent, 'length')
  while (firstGreater(contentSize, searchIndex)) {
-  currentCharacter = getValue(textContent, searchIndex)
+  var currentCharacter = getValue(textContent, searchIndex)
   if (areSame(currentCharacter, '\n')) {
-   nextIndex = addNumbers(searchIndex, 1)
-   nextCharacter = getValue(textContent, nextIndex)
+   var nextIndex = addNumbers(searchIndex, 1)
+   var nextCharacter = getValue(textContent, nextIndex)
    if (arentSame(nextCharacter, "'")) {
     if (arentSame(nextCharacter, '"')) {
-     createdLine = addLine()
+     var createdLine = addLine()
      setValue(createdLine, 'innerHTML', toHTML(newLine))
      setContent(textContent, nextIndex)
      return
@@ -283,8 +283,8 @@ function setContent (textContent, currentIndex) {
   newLine = concatenateStrings(newLine, currentCharacter)
   searchIndex = addNumbers(searchIndex, 1)
  }
- editorContent = getValue(body_node, 'children')
- lastIndex = differenceNumbers(getValue(editorContent, 'length'), addNumbers(nonline_elements, 1))
+ var editorContent = getValue(body_node, 'children')
+ var lastIndex = differenceNumbers(getValue(editorContent, 'length'), addNumbers(nonline_elements, 1))
  current_x = 0
  current_y = lastIndex
  setCursor()
@@ -293,28 +293,28 @@ function setContent (textContent, currentIndex) {
 }
 
 function getSize () {
- editorContent = getValue(body_node, 'children')
- editorSize = getValue(editorContent, 'length')
- numberLines = differenceNumbers(editorSize, nonline_elements)
+ var editorContent = getValue(body_node, 'children')
+ var editorSize = getValue(editorContent, 'length')
+ var numberLines = differenceNumbers(editorSize, nonline_elements)
  return numberLines
 }
 
 function insertCharacter (keyPressed) {
- lineValue = getValue(current_line, 'textContent')
- lineSize = getValue(lineValue, 'length')
+ var lineValue = getValue(current_line, 'textContent')
+ var lineSize = getValue(lineValue, 'length')
  if (areSame(lineSize, current_x)) {
-  newValue = concatenateStrings(lineValue, keyPressed)
+  var newValue = concatenateStrings(lineValue, keyPressed)
   setValue(current_line, 'innerHTML', toHTML(newValue))
   current_x = addNumbers(current_x, 1)
   setCursor()
   return
  }
- newValue = ''
- searchIndex = 0
+ var newValue = ''
+ var searchIndex = 0
  while (firstGreater(lineSize, searchIndex)) {
-  currentCharacter  = getValue(lineValue, searchIndex)
+  var currentCharacter  = getValue(lineValue, searchIndex)
   if (areSame(searchIndex, current_x)) {
-   newValue = concatenateStrings(newValue, keyPressed)
+   var newValue = concatenateStrings(newValue, keyPressed)
    while (firstGreater(lineSize, searchIndex)) {
     currentCharacter  = getValue(lineValue, searchIndex)
     newValue  = concatenateStrings(newValue, currentCharacter)
@@ -331,12 +331,12 @@ function insertCharacter (keyPressed) {
 }
 
 function countNonline () {
- editorContent = getValue(body_node, 'children')
- searchIndex = 0
- contentSize = getValue(editorContent, 'length')
+ var editorContent = getValue(body_node, 'children')
+ var searchIndex = 0
+ var contentSize = getValue(editorContent, 'length')
  while (firstGreater(contentSize, searchIndex)) {
-  currentElement = getValue(editorContent, searchIndex)
-  elementClassname = getValue(currentElement, 'className')
+  var currentElement = getValue(editorContent, searchIndex)
+  var elementClassname = getValue(currentElement, 'className')
   if (areSame(elementClassname, 'minivum-line')) {
    return searchIndex   
   }
@@ -351,8 +351,8 @@ function executeCommand (keyPressed) {
   return
  }
  if (areSame(keyPressed, ';')) {
-  newProgram = getContent()
-  oldProgram = getElement(interior_program)
+  var newProgram = getContent()
+  var oldProgram = getElement(interior_program)
   if (arentSame(oldProgram, undefined)) {
    body_node.removeChild(oldProgram)
   }
@@ -372,8 +372,8 @@ function executeCommand (keyPressed) {
   if (areSame(current_y, 0)) {
    return
   }
-  previousY = differenceNumbers(current_y, 1)
-  previousLine = getLine(previousY)
+  var previousY = differenceNumbers(current_y, 1)
+  var previousLine = getLine(previousY)
   current_line = previousLine
   current_y = previousY
   current_x = 0
@@ -381,13 +381,13 @@ function executeCommand (keyPressed) {
   return
  }
  if (areSame(keyPressed, 'k')) {
-  numberLines = getSize()
-  lastIndex = differenceNumbers(numberLines, 1)
+  var numberLines = getSize()
+  var lastIndex = differenceNumbers(numberLines, 1)
   if (areSame(lastIndex, current_y)) {
    return
   }
-  nextY = addNumbers(current_y, 1)
-  nextLine = getLine(nextY)
+  var nextY = addNumbers(current_y, 1)
+  var nextLine = getLine(nextY)
   current_line = nextLine
   current_y = nextY
   current_x = 0
@@ -403,7 +403,7 @@ function executeCommand (keyPressed) {
   return
  }
  if (areSame(keyPressed, 'l')) {
-  currentSize = getValue(getValue(current_line, 'textContent'), 'length')
+  var currentSize = getValue(getValue(current_line, 'textContent'), 'length')
   if (areSame(current_x, currentSize)) {
    return
   }
@@ -420,8 +420,8 @@ function executeCommand (keyPressed) {
   return
  }
  if (areSame(keyPressed, 't')) {
-  editorSize = getSize()
-  lastIndex = differenceNumbers(editorSize, 1)
+  var editorSize = getSize()
+  var lastIndex = differenceNumbers(editorSize, 1)
   current_line = getLine(lastIndex)
   current_x = 0
   current_y = lastIndex
@@ -430,12 +430,12 @@ function executeCommand (keyPressed) {
   return
  }
  if (areSame(keyPressed, 's')) {
-  textContent = getContent()
+  var textContent = getContent()
   localStorage.setItem(storage_name, textContent) 
   return
  }
  if (areSame(keyPressed, 'z')) {
-  storedProgram = localStorage.getItem(storage_name)
+  var storedProgram = localStorage.getItem(storage_name)
   clearContent()
   setContent(storedProgram)
   current_x = 0
@@ -448,19 +448,19 @@ function executeCommand (keyPressed) {
 }
 
 function ispDetected (programText) {
- searchIndex = 0
- searchMaximum = 1000
- startingColons = 0
- numberSought = 2
- firstCharacter = getValue(programText, 0)
+ var searchIndex = 0
+ var searchMaximum = 1000
+ var startingColons = 0
+ var numberSought = 2
+ var firstCharacter = getValue(programText, 0)
  if (areSame(firstCharacter, ':')) {
   startingColons = 1
  }
  while (firstGreater(searchMaximum, searchIndex)) {
-  currentCharacter = getValue(programText, searchIndex)
+  var currentCharacter = getValue(programText, searchIndex)
   if (areSame(currentCharacter, '\n')) {
-   nextIndex = addNumbers(searchIndex, 1)
-   nextCharacter = getValue(programText, nextIndex)
+   var nextIndex = addNumbers(searchIndex, 1)
+   var nextCharacter = getValue(programText, nextIndex)
    if (areSame(nextCharacter, ':')) {
     startingColons = addNumbers(startingColons, 1)
     if (areSame(startingColons, numberSought)) {
@@ -474,11 +474,11 @@ function ispDetected (programText) {
 }
 
 function getElement (elementID) {
- editorElements = getValue(body_node, 'children')
- searchIndex = 0
+ var editorElements = getValue(body_node, 'children')
+ var searchIndex = 0
  while (firstGreater(nonline_elements, searchIndex)) {
-  currentElement = getValue(editorElements, searchIndex)
-  currentID = getValue(currentElement, 'id')
+  var currentElement = getValue(editorElements, searchIndex)
+  var currentID = getValue(currentElement, 'id')
   if (areSame(elementID, currentID)) {
    return currentElement
   }
@@ -487,12 +487,12 @@ function getElement (elementID) {
 }
 
 function updateScroll () {
-  newScroll = differenceNumbers(multiplyNumbers(current_y, font_size), breathing_room)
+  var newScroll = differenceNumbers(multiplyNumbers(current_y, font_size), breathing_room)
   window.scrollTo(0, newScroll)
 }
 
 function secondaryAction (keyEvent) {
- keyPressed = keyEvent.key
+ var keyPressed = keyEvent.key
  keyEvent.preventDefault()
  if (areSame(keyPressed, 'Escape')) {
   command_mode = true
@@ -502,37 +502,37 @@ function secondaryAction (keyEvent) {
  
 
 function arentSame (item1, item2) {
- conditionMet = item1 !== item2
+ var conditionMet = item1 !== item2
  return conditionMet
 }
 
 function differenceNumbers (number1, number2) {
-  outputValue = number1 - number2
+  var outputValue = number1 - number2
   return outputValue
 }
 
 function firstGreater (number1, number2) {
- outputValue = number1 > number2
+ var outputValue = number1 > number2
  return outputValue
 }
 
 function addNumbers (number1, number2) {
- sumValue = number1 + number2
+ var sumValue = number1 + number2
  return sumValue
 }
 
 function multiplyNumbers (number1, number2) {
- productValue = number1 * number2
+ var productValue = number1 * number2
  return productValue
 }
 
 function areSame (item1, item2) {
- conditionMet = item1 === item2
+ var conditionMet = item1 === item2
  return conditionMet
 }
 
 function getValue (objectItem, valueKey) {
- valueValue = objectItem[valueKey]
+ var valueValue = objectItem[valueKey]
  return valueValue
 }
 
@@ -541,17 +541,17 @@ function setValue (objectItem, valueKey, valueValue) {
 }
 
 function concatenateStrings (string1, string2) {
- concatenatedString = string1 + string2
+ var concatenatedString = string1 + string2
  return concatenatedString
 }
 
 function toString (numberItem) {
- asString = numberItem.toString()
+ var asString = numberItem.toString()
  return asString
 }
 
 function isOdd (inputNumber) {
- conditionMet = inputNumber % 2
+ var conditionMet = inputNumber % 2
  return conditionMet
 }
 
