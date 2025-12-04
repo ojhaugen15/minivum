@@ -1,5 +1,5 @@
 <html><head></head><body><script>
-console.log('testing')
+console.log('TESTING')
  
 character_width = 7.8
 font_size = 13
@@ -278,6 +278,7 @@ function setContent (textContent, currentIndex) {
     if (arentSame(nextCharacter, '"')) {
      var createdLine = addLine()
      setValue(createdLine, 'innerHTML', toHTML(newLine))
+     console.log('newLine toHTML: ', toHTML(newLine))
      setContent(textContent, nextIndex)
      return
     }
