@@ -278,7 +278,6 @@ function setContent (textContent, currentIndex) {
     if (arentSame(nextCharacter, '"')) {
      var createdLine = addLine()
      setValue(createdLine, 'innerHTML', toHTML(newLine))
-     console.log('newLine toHTML: ', toHTML(newLine))
      setContent(textContent, nextIndex)
      return
     }
@@ -286,6 +285,11 @@ function setContent (textContent, currentIndex) {
   }
   newLine = concatenateStrings(newLine, currentCharacter)
   searchIndex = addNumbers(searchIndex, 1)
+ }
+ var lineSize = getValue(newLine, 'length')
+ if (firstGreater(lineSize, 0)) {
+  var createdLine = addLine()
+  setValue(createdLine, 'innerHTML', toHTML(newLine))
  }
  var editorContent = getValue(body_node, 'children')
  var lastIndex = differenceNumbers(getValue(editorContent, 'length'), addNumbers(nonline_elements, 1))
