@@ -338,21 +338,6 @@ function insertCharacter (keyPressed) {
  }
 }
 
-function countNonline () {
- var editorContent = getValue(body_node, 'children')
- var searchIndex = 0
- var contentSize = getValue(editorContent, 'length')
- while (firstGreater(contentSize, searchIndex)) {
-  var currentElement = getValue(editorContent, searchIndex)
-  var elementClassname = getValue(currentElement, 'className')
-  if (areSame(elementClassname, 'minivum-line')) {
-   return searchIndex   
-  }
-  searchIndex = addNumbers(searchIndex, 1)
- }
- return searchIndex
-}
-
 function executeCommand (keyPressed) {
  if (areSame(keyPressed, 'i')) {
   command_mode = false
@@ -361,10 +346,11 @@ function executeCommand (keyPressed) {
  if (areSame(keyPressed, ';')) {
   var newProgram = getContent()
   var oldProgram = getElement(interior_program)
-  if (arentSame(oldProgram, undefined)) {
+  if (arentSame(isFalsey(oldProgram), true)) {
    body_node.removeChild(oldProgram)
+   differenceNumbers(nonline_elements, 1)
   }
-  nonline_elements = countNonline()
+  nonline_elements = addNumbers(nonline_elements, 1)
   programElement = document.createElement('script')
   if (ispDetected(newProgram)) {
    newProgram = transpileIsp(newProgram)
@@ -561,6 +547,10 @@ function toString (numberItem) {
 function isOdd (inputNumber) {
  var conditionMet = inputNumber % 2
  return conditionMet
+}
+
+function isFalsey (inputItem) {
+ return !isFalsey
 }
 
 </script>
